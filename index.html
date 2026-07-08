@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #gallery-img {
+            width: 96%;
+            height: auto;
+            cursor: pointer;
+            border: 2px solid #333;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <img id="gallery-img" src="" alt="Click to advance">
+
+    <script>
+        // Add your image filenames here in alphabetical order
+        const images = [
+    "images/Slide1.png",
+    "images/Slide2.png",
+    "images/Slide3.png",
+    "images/Slide4.png",
+    "images/Slide5.png",
+    "images/Slide6.png",
+    "images/Slide7.png",
+    "images/Slide8.png",
+    "images/Slide9.PNG"
+];
+
+        let currentIndex = 0;
+        const imgElement = document.getElementById('gallery-img');
+
+        function updateImage() {
+            imgElement.src = images[currentIndex];
+        }
+
+        imgElement.addEventListener('click', (event) => {
+    // Calculate the threshold (15% of the image width)
+    const threshold = event.target.offsetWidth * 0.15;
+
+    if (event.offsetX < threshold) {
+        // Left 15%: Go to previous image
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+    } else {
+        // Remaining 85%: Go to next image
+        currentIndex = (currentIndex + 1) % images.length;
+    }
+    updateImage();
+});
+
+        // Initialize the first image
+        if (images.length > 0) {
+            updateImage();
+        }
+    </script>
+</body>
+</html>
